@@ -351,10 +351,27 @@ button[type=submit] {
 <div class="modal" id="errorModal"><div class="modal-content">❌ Ошибка при отправке! Попробуйте позже.</div></div>
 
 <script>
+<script>
 // Меню
-document.querySelector('.menu-btn').onclick = ()=> 
-  document.querySelector('.fullscreen-menu').classList.toggle('active');
+const menuBtn = document.querySelector('.menu-btn');
+const fullMenu = document.querySelector('.fullscreen-menu');
 
+menuBtn.addEventListener('click', () => {
+  fullMenu.classList.toggle('active');
+});
+
+// Плавная прокрутка и закрытие меню при клике на ссылку
+document.querySelectorAll('.fullscreen-menu a').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if(target){
+      fullMenu.classList.remove('active'); // закрываем меню
+      target.scrollIntoView({behavior:'smooth'}); // плавная прокрутка
+    }
+  });
+});
+</script>
 // Аккордеон
 document.querySelectorAll('.accordion-header').forEach(header=>{
   header.onclick = ()=>{
